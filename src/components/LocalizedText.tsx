@@ -5,7 +5,7 @@ import { useLanguage } from "@/components/LanguageProvider"
 type LocalizedTextProps = {
   en: string
   ar: string
-  tag?: keyof JSX.IntrinsicElements
+  tag?: keyof HTMLElementTagNameMap
   className?: string
 }
 
