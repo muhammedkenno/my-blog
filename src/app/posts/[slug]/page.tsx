@@ -1,6 +1,7 @@
 // src/app/posts/[slug]/page.tsx
 import Link from "next/link"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
+import type { RootNode } from "@strapi/blocks-react-renderer"
 import { strapiGet } from "@/lib/api"
 import { LocalizedBackToBlogLink } from "@/components/LocalizedBackToBlogLink"
 
@@ -9,7 +10,7 @@ type StrapiPost = {
   title: string
   description: string
   slug: string
-  content: unknown[]
+  content: RootNode[]
 }
 
 async function getPost(slug: string): Promise<StrapiPost | null> {
