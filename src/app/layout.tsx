@@ -1,13 +1,47 @@
 // src/app/layout.tsx
 import type { Metadata } from "next"
-import { Geist } from "next/font/google"
+import { Plus_Jakarta_Sans, Cairo } from "next/font/google"
 import "./globals.css"
-import Link from "next/link"
+import { LanguageProvider } from "@/components/LanguageProvider"
+import { Navbar } from "@/components/Navbar"
 
-const geist = Geist({ subsets: ["latin"] })
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-sans",
+})
+
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-arabic",
+})
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
+  title: "Muhammed Kenno | Fullstack Web Developer",
+  description: "أنا محمد كنو، مهندس حاسوب درست في جامعة كراووك وعملت في تركيا وفي التجارة. أعمل كمبرمج ويب fullstack وأقدم حلولاً تقنية وتصميمية احترافية.",
+  metadataBase: new URL("https://your-domain.com"),
+  openGraph: {
+    title: "Muhammed Kenno | Fullstack Web Developer",
+    description: "أنا محمد كنو، مهندس حاسوب درست في جامعة كرابوك وعملت في تركيا وفي التجارة. أعمل كمبرمج ويب fullstack وأقدم حلولاً تقنية وتصميمية احترافية.",
+    type: "website",
+  },
+  keywords: [
+    "Muhammed Kenno",
+    "مهندس حاسوب",
+    "fullstack web developer",
+    "تطوير ويب",
+    "Strapi",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "SEO",
+    "Turkey",
+    "commerce",
+    "portfolio",
+  ],
 }
 
 export default function RootLayout({
@@ -16,26 +50,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${geist.className} bg-gray-950`}>
-
-        <nav className="border-b border-gray-800 px-10 py-4 flex gap-6">
-          <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-            Blog
-          </Link>
-          <Link href="/projects" className="text-gray-400 hover:text-white transition-colors">
-            Projects
-          </Link>
-          <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-            About
-          </Link>
-          <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-            Contact
-          </Link>
-        </nav>
-
-        {children}
-
+    <html lang="en" className={cairo.className}>
+      <body className={`${plusJakarta.className} min-h-screen bg-slate-950 text-slate-100 antialiased`}>
+        <LanguageProvider>
+          <div className="min-h-screen">
+            <Navbar />
+            {children}
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   )

@@ -2,13 +2,14 @@
 import Link from "next/link"
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import { strapiGet } from "@/lib/api"
+import { LocalizedBackToBlogLink } from "@/components/LocalizedBackToBlogLink"
 
 type StrapiPost = {
   id: number
   title: string
   description: string
   slug: string
-  content: any[]
+  content: unknown[]
 }
 
 async function getPost(slug: string): Promise<StrapiPost | null> {
@@ -31,29 +32,32 @@ export default async function PostPage({
 
   if (!post) {
     return (
-      <main className="min-h-screen bg-gray-950 text-white p-10">
-        <h1 className="text-2xl text-red-400">Post not found 😅</h1>
-        <Link href="/" className="text-blue-400 mt-4 block hover:underline">
-          ← Back
-        </Link>
+      <main className="py-14">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="glass-card rounded-4xl border border-slate-800/80 p-10">
+            <h1 className="text-2xl text-red-400">Post not found 😅</h1>
+            <div className="mt-4 inline-block">
+              <LocalizedBackToBlogLink />
+            </div>
+          </div>
+        </div>
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white p-10 max-w-2xl">
-      <Link href="/" className="text-gray-400 hover:text-white transition-colors text-sm">
-        ← Back
-      </Link>
+    <main className="py-14">
+      <div className="mx-auto max-w-4xl px-6">
+        <div className="glass-card rounded-4xl border border-slate-800/80 p-10">
+          <LocalizedBackToBlogLink />
 
-      <h1 className="text-4xl font-bold text-blue-400 mt-6 mb-3">
-        {post.title}
-      </h1>
+          <h1 className="text-5xl font-semibold tracking-tight text-white mt-6 mb-4">{post.title}</h1>
+          <p className="text-slate-300 mb-10 text-base leading-7">{post.description}</p>
 
-      <p className="text-gray-400 mb-8 text-sm">{post.description}</p>
-
-      <div className="text-gray-300 leading-relaxed">
-        <BlocksRenderer content={post.content} />
+          <div className="prose prose-invert max-w-none text-slate-200">
+            <BlocksRenderer content={post.content} />
+          </div>
+        </div>
       </div>
     </main>
   )
